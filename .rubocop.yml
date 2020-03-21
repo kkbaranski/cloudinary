@@ -1,0 +1,23 @@
+require: rubocop-rails
+
+Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context', 'shared_examples', 'define']
+  Exclude:
+    - 'db/schema.rb'
+    - 'Guardfile'
+    - 'config/routes.rb'
+
+Metrics/LineLength:
+  Max: 100
+
+Metrics/MethodLength:
+  Max: 15
+  Exclude:
+    - 'db/migrate/*'
+
+Metrics:
+  Exclude:
+    - 'bin/*'
