@@ -7,6 +7,7 @@ ruby '2.7.0'
 
 gem 'activeadmin'
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'config'
 gem 'devise'
 gem 'devise-encryptable'
 gem 'devise-security'
@@ -17,6 +18,7 @@ gem 'rails', '~> 6.0.0'
 gem 'sass-rails'
 gem 'turbolinks'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'webmock'
 gem 'webpacker'
 
 group :development, :test do
