@@ -1,18 +1,30 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Ad do
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # Uncomment all parameters which should be permitted for assignment
-  #
   permit_params :name, :url
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:name, :url]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+
+  index do
+    id_column
+    column :name
+    column :url
+    column :all_loads do |ad|
+      ad.ad_stats.pluck(:loads).sum
+    end
+    column :all_clicks do |ad|
+      ad.ad_stats.pluck(:clicks).sum
+    end
+    actions
+  end
+
+  action_item only: :index do
+    link_to 'Load ads', action: 'upload_excel'
+  end
+
+  collection_action :upload_excel do
+    uri = URI(Settings.ad_provider_url)
+    response = Net::HTTP.get(uri)
+    ads = JSON.parse(response)
+    answer = LoadAdsService.new(**{ ads: ads }).call
+    redirect_to collection_path, notice: "#{answer.data.size} ads have been imported."
+  end
 end

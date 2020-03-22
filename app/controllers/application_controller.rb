@@ -7,6 +7,11 @@ class ApplicationController < ActionController::Base
 
   WebMock.enable!
 
-  WebMock.stub_request(:any, Settings.ad_provider_url).
-    to_return { { body: JSON.generate(Faker::Lorem.word => Faker::Internet.url) } }
+  WebMock.stub_request(:any, Settings.ad_provider_url).to_return do
+    {
+      body: JSON.generate(
+        10.times.map { |_n| [Faker::Lorem.word, Faker::Internet.url] }.to_h
+      )
+    }
+  end
 end
