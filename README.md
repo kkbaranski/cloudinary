@@ -21,6 +21,10 @@ rails s
 ff6017630e9d30162d647148405c5ccc
 ```
 
+## Architecture diagram
+
+![diagram](cloudinary.jpg)
+
 ## Admin
 
 ```
